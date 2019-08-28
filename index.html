@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Songbook</title>
+	</head>
+	<body>
+		<script>
+			let songs;
+			
+			function getSongsFromGithub() {
+				let request = new XMLHttpRequest();
+				request.open("GET", "https://raw.githubusercontent.com/pablok2/YouthSongbook-Android/master/YouthSongbook/Assets/songs.json", false);
+				request.onload = function(e) {
+					if (request.readyState === 4) {
+						if (request.status === 200) {
+							let response = request.responseText.trim().replace(/[\n]/g,'');
+							songs = JSON.parse(response);
+						}
+					}
+				};
+				request.send(null);
+			}
+			
+			function createSelectionMenu() {
+				let selectList = document.createElement("select");
+				selectList.id = "songsDropDownList";
+				selectList.onchange = function () {
+					document.getElementById("songWordsParagraph").innerText = songs[this.value];
+				}
+				document.body.appendChild(selectList);
+			}
+			
+			function createParagraph() {
+				let paragraph = document.createElement("P");
+				paragraph.id = "songWordsParagraph";
+				document.body.appendChild(paragraph);
+			}
+			
+			function createEachSongOption() {
+				for (let song in songs) {
+					let option = document.createElement("option");
+					option.text = song;
+					option.value = song;
+					document.getElementById("songsDropDownList").appendChild(option);
+				}
+			}
+			
+			getSongsFromGithub();
+			createSelectionMenu();
+			createParagraph();
+			createEachSongOption();
+		</script>
+		
+	</body>
+</html>
