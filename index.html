@@ -9,7 +9,7 @@
 			
 			function getSongsFromGithub() {
 				let request = new XMLHttpRequest();
-				request.open("GET", "https://raw.githubusercontent.com/pablok2/YouthSongbook-Android/master/YouthSongbook/Assets/songs.json", false);
+				request.open("GET", "https://raw.githubusercontent.com/pablok2/JSSongbookWebapp/master/reFromattedSongs.json", false);
 				request.onload = function(e) {
 					if (request.readyState === 4) {
 						if (request.status === 200) {
